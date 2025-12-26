@@ -464,19 +464,31 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
-      try {
-        const { emailContent } = await checkoutManager.placeOrder(cart.items, email, (status) => {
-          const statusEl = document.getElementById('checkout-status');
-          if (statusEl) statusEl.textContent = status;
-        });
+      // Simulate checkout process for static deployment (GitHub Pages)
+      setTimeout(() => {
+        const statusEl = document.getElementById('checkout-status');
+        if (statusEl) statusEl.textContent = 'Processing payment...';
+        
+        setTimeout(() => {
+          if (statusEl) statusEl.textContent = 'Finalizing order...';
+          
+          setTimeout(() => {
+            cart.clear();
+            
+            // Create simulated email content
+            const emailContent = `
+              <div style="text-align: center; padding: 20px;">
+                <h3 style="color: #4f46e5; font-size: 24px; margin-bottom: 10px;">Order Confirmed!</h3>
+                <p>Thank you for your purchase, <strong>${email}</strong>.</p>
+                <p style="margin-top: 10px; color: #666;">Payment Method: ${checkoutManager.selectedPaymentMethod.replace('_', ' ')}</p>
+                <p style="font-size: 12px; color: #999; margin-top: 20px;">(This is a demo project. No real payment was processed.)</p>
+              </div>
+            `;
 
-        cart.clear();
-
-        renderEmailStep(emailContent);
-      } catch (error) {
-        alert(error.message);
-        renderPlaceOrderStep();
-      }
+            renderEmailStep(emailContent);
+          }, 1000);
+        }, 1000);
+      }, 1000);
     });
   }
 
