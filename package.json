@@ -1,0 +1,25 @@
+{
+  "name": "modern-ecommerce-store",
+  "version": "1.0.0",
+  "description": "A fully functional vanilla JS e-commerce store",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "prestart": "npx -y kill-port 3000 3001",
+    "start": "concurrently --kill-others \"npm run server\" \"npm run dev\"",
+    "dev": "http-server -p 3000 -c-1 --cors -a localhost",
+    "server": "node js/server.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "http-server": "^14.1.1",
+    "nodemailer": "^7.0.12"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "vite": "^7.3.0"
+  }
+}
